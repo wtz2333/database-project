@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>数据库实验</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link rel="stylesheet" href="/jui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/codemirror-5.65.12/lib/codemirror.css">
+    <link rel="stylesheet" href="/codemirror-5.65.12/theme/panda-syntax.css">
+    <link rel="stylesheet" href="/codemirror-5.65.12/addon/fold/foldgutter.css">
+    <link rel="stylesheet" href="/codemirror-5.65.12/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="/codemirror-5.65.12/addon/scroll/simplescrollbars.css">
+    <link rel="stylesheet" href="/css/utilities.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M4.318 2.687C3.356 3.125 3 3.627 3 4c0 .374.356.875 1.318 1.313C5.234 5.729 6.536 6 8 6s2.766-.27 3.682-.687C12.644 4.875 13 4.373 13 4c0-.374-.356-.875-1.318-1.313C10.766 2.271 9.464 2 8 2s-2.766.27-3.682.687ZM13 5.698a4.92 4.92 0 0 1-.904.525C11.022 6.711 9.573 7 8 7s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 5.698V7c0 .374.356.875 1.318 1.313C5.234 8.729 6.536 9 8 9s2.766-.27 3.682-.687C12.644 7.875 13 7.373 13 7V5.698ZM14 4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13V4Zm-1 4.698a4.92 4.92 0 0 1-.904.525C11.022 9.71 9.573 10 8 10s-3.022-.289-4.096-.777A4.92 4.92 0 0 1 3 8.698V10c0 .374.356.875 1.318 1.313C5.234 11.729 6.536 12 8 12s2.766-.27 3.682-.687C12.644 10.875 13 10.373 13 10V8.698Zm0 3c-.271.202-.58.378-.904.525C11.022 12.71 9.573 13 8 13s-3.022-.289-4.096-.777A4.916 4.916 0 0 1 3 11.698V13c0 .374.356.875 1.318 1.313C5.234 14.729 6.536 15 8 15s2.766-.27 3.682-.687C12.644 13.875 13 13.373 13 13v-1.302Z"/>
+        </svg>
+        <a class="navbar-brand" href="#">数据库实验</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <form id="search_test_text" class="d-flex" role="form" onsubmit="return false">
+                <input id="search_test_input" class="form-control me-2" name="the_search_test"
+                       placeholder="题目,例如test0_0">
+                <button id="search_test" class="btn btn-outline-success" type="button">Search</button>
+            </form>
+        </div>
+        <button class="btn btn-primary" id="colormode">mode</button>
+        <div class="nav navbar-right">
+
+            <a>&nbsp;&nbsp;&nbsp;</a>
+            <a href="/logout">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                     class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                    <path fill-rule="evenodd"
+                          d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                </svg>
+            </a>
+            <a>&nbsp;&nbsp;&nbsp;</a>
+            <a href="/profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
+                     viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                </svg>
+        </a>
+    </div>
+  </div>
+
+</nav>
+<div class="container-fluid card border-primary border-start-0 border-end-0">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    {% if path %}
+        <li class="breadcrumb-item"><a href="/">题目集{{ path['set'] }} </a></li>
+        <li class="breadcrumb-item active" aria-current="page">题目{{ path['test'] }}</li>
+    {% endif %}
+  </ol>
+</nav>
+</div>
+
+<br>
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-md-2">
+        我的分数： {{ my_total_score }} / {{ problem_list.total_score }}
+            <div class="progress">
+
+                <div class="progress-bar" style="width: {{ 100*my_total_score/problem_list.total_score|d(75) }}%"></div>
+
+            </div>
+         <br>
+                    <!--
+                        <div id="card-216938">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="card-link" data-bs-toggle="collapse" data-parent="#card-216938"
+                                    href="#card-element-123456">题目集0</a>
+                                </div>
+                                <div id="card-element-123456" class="collapse show">
+                                    {% for problem in problem_list.result %}
+                                    <div class="card-body">
+                                        <a  href="/question/{{ problem[1] }}/{{ problem[0] }}">
+                                            {{ problem[0] }}
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    -->
+        </div>
+        <br>
+        <br>
+    </div>
+    <div class="row">
+        <!-- todo -->
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <!--
+                    <h3 class="text-center">
+                        {{ problem.title|d("导航页") }}
+                    </h3>
+                    <p>
+                        {{ problem.description|d("从左边选择题目") }}
+                    </p>
+                    -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>问题标题</th>
+                                <th>要求完成时间</th>
+                                <th>分值</th>
+                                <th>完成时间</th>
+                                <th>得分</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for problem in problem_list.result %}
+                            <tr class="table-{{  problem_result[problem[0]].status }}">
+                                <td>
+                                    <a href="/question/{{ problem[1] }}/{{ problem[0] }}" class="btn btn-primary btn-sm">  {{ problem[0] }} </a>
+                                </td>
+                                <td> {{ problem.expected_time|d("2024-06-01") }} </td>
+                                <td> {{ problem.score|d(1) }} </td>
+                                <td>{{ problem_result[problem[0]].time }}</td>
+                                <td>{{ problem_result[problem[0]].score }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <span class="badge badge-primary">Label</span>
+                    <div class="card">
+                        <h5 class="card-header">
+                            题目要求
+                        </h5>
+                        <div class="card-body">
+                            <!-- <p class="card-text">
+                                应完成时间: {{ problem.expected_time|d("2024-06-01") }}
+                            </p> -->
+                            <p>
+                                {{ problem.description|d("从左边选择题目") }}
+                            </p>
+                        </div>
+                        <!-- <div class="card-footer">
+                            题目分值: {{ problem.score|d(1) }}
+                        </div> -->
+                    </div>
+                    <!-- <table class="table">
+                        <thead>
+                        <tr>
+                            <th>提交时间</th>
+                            <th>得分</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-{{ submit.status }}">
+                            <td>{{ submit.time }}</td>
+                            <td>{{ submit.score }}</td>
+                            <td>{{ submit.message }}</td>
+                        </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- <div class="col-md-8"> -->
+                        <!-- <form id="sql_code" role="form" action="/user/execute" method="post"> -->
+                            <!-- <textarea id="code" name="sql"></textarea> -->
+                            <!--<input type="hidden" name="page-size" value="50" >-->
+                            <!-- <div class="btn-group" style="float:right"> -->
+                                <!-- <button id="answer_run" type="button" class="btn btn-success"> -->
+                                    <!-- RUN -->
+                                <!-- </button> -->
+                                <!-- <button id="answer_submit" type="button" class="btn btn-success"> -->
+                                    <!-- SUBMIT -->
+                                <!-- </button> -->
+
+                            <!-- </div> -->
+                        <!-- </form> -->
+                    <!-- </div> -->
+
+
+                    <div class="col-md-2">
+                        <label>常用表查询: </label>
+                        <!--
+                        <form class="d-flex" role="search">
+                            <input id="search_table" aria-label="Search" class="form-control me-2" placeholder="常用表,例如pub.sc" type="search">
+                            <button id="search_table_button" class="btn btn-outline-success" type="button">Search</button>
+                        </form>
+                        -->
+                        <!-- <div class="row"> -->
+                            <!-- <div class="col-md-3"> -->
+                                <div id="list-example" class="list-group ">
+                                    {% for table_name in table_list.tables %}
+                                        <a class="list-group-item list-group-item-action common-table"
+                                           href="#list-{{ table_name }}">{{ table_name }}</a>
+                                    {% endfor %}
+                                </div>
+                            <!-- </div> -->
+                            <!--
+                            <div class="col-8">
+                                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
+                                     class="scrollspy-example" tabindex="0">
+                                    {% for table_name,create in table_list.create_tables.items() %}
+                                    <h4 id="list-{{ table_name }}">{{ table_name }}</h4>
+                                    {% autoescape false %}
+                                    <p>{{ create|replace("\n","<br>") }}</p>
+                                    {% endautoescape %}
+
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            -->
+                        <!-- </div> -->
+                    </div>
+                    
+                    <div class="col-md-6">
+                    <div class="row">
+                        <button class="btn btn-primary" data-bs-target="#yourtable" data-bs-toggle="collapse" style="float:left"
+                                type="button">
+                            <span id="result-table-name"></span>
+                            <span id="result-table-size" class="badge badge-light">size:0</span>
+                        </button>
+                    </div>
+                    <div id="yourtable" class="row">
+                        <table id="result-table" class="table table-hover table-bordered table-striped table-d ">
+                        </table>
+                        <div class="row" style="float: left">
+                            <div class="col-md-6">
+                                <nav>
+                                    <ul class="pagination" id="select-page-bar">
+                                        <li class="page-item">
+                                            <a class="page-link" id="select-page-f">First</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" id="select-page-p">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" id="select-page-n">Next</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" id="select-page-l">Last</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <form id="sql_code" role="form" action="/user/execute" method="post">
+                            <textarea id="code" name="sql"></textarea>
+                            <!--<input type="hidden" name="page-size" value="50" >-->
+                            <div class="btn-group" style="float:right">
+                                <button id="answer_run" type="button" class="btn btn-success">
+                                    RUN
+                                </button>
+                                <button id="answer_submit" type="button" class="btn btn-success">
+                                    SUBMIT
+                                </button>
+
+                            </div>
+                        </form>
+                        <br>
+                        <br>
+                        <div class="alert alert-info" id="alert">
+                            <h4 id="alert-title"></h4>
+                            <p id="alert-content">学无止境 气有浩然</p>
+    
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 
+                <div class="col-md-6">
+                    <div class="alert alert-info" id="alert">
+                        <h4 id="alert-title"></h4>
+                        <p id="alert-content">学无止境 气有浩然</p>
+
+                     </div>
+                </div> 
+                -->
+            </div>
+            <!-- <br> -->
+            <!-- <br> -->
+            <!-- <div class="row"> -->
+                <!-- <div class="col-md-8"> -->
+                    <!-- <div class="alert alert-info" id="alert"> -->
+                        <!-- <h4 id="alert-title"></h4> -->
+                        <!-- <p id="alert-content">学无止境 气有浩然</p> -->
+
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+            <br>
+            <br>
+            <!--
+            <div class="row">
+                <button class="btn btn-primary" data-bs-target="#yourtable" data-bs-toggle="collapse" style="float:left"
+                        type="button">
+                    <span id="result-table-name"></span>
+                    <span id="result-table-size" class="badge badge-light">size:0</span>
+                </button>
+            </div>
+            <div id="yourtable" class="row">
+                <table id="result-table" class="table table-hover table-bordered table-striped table-d ">
+                </table>
+                <div class="row" style="float: left">
+                    <div class="col-md-12">
+                        <nav>
+                            <ul class="pagination" id="select-page-bar">
+                                <li class="page-item">
+                                    <a class="page-link" id="select-page-f">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" id="select-page-p">Previous</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" id="select-page-n">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" id="select-page-l">Last</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            -->
+            <!-- 这里是显示表 -->
+            <!-- <div id="vcomments"></div> -->
+            <div id="goTopBtn"><span class="glyphicon glyphicon-chevron-up">&Delta;</span></div>
+        </div>
+    </div>
+    <div id="content" class="mw-body" role="main"></div>
+</div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="/jui/jquery-3.7.0.min.js"></script>
+<script src="/jui/jquery-ui.js"></script>
+<script src="/codemirror-5.65.12/lib/codemirror.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!--sql代码高亮-->
+<script src="/codemirror-5.65.12/mode/sql/sql.js"></script>
+<!--括号匹配-->
+<script src="/codemirror-5.65.12/addon/edit/matchbrackets.js"></script>
+<!--自动补全-->
+<script src="/codemirror-5.65.12/addon/hint/show-hint.js"></script>
+<script src="/codemirror-5.65.12/addon/hint/anyword-hint.js"></script>
+<script src="/codemirror-5.65.12/addon/hint/sql-hint.js"></script>
+<!--滚动条-->
+<script src="/codemirror-5.65.12/addon/scroll/simplescrollbars.js"></script>
+<!--小火箭-->
+<script src="http://cdn.bootcss.com/gsap/1.19.0/TweenMax.min.js"></script>
+<script src="http://cdn.bootcss.com/gsap/1.19.0/plugins/ScrollToPlugin.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'vOfMCZfwKKAvgO1LzoVVYEv1-gzGzoHsz',
+        appKey: 'IJ3Of3KSmaIS9Oe7dMeLIZp9'
+    })
+    const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        mode: "text/x-mysql",
+        // mode:"text/x-python",
+        lineNumbers: true,
+        scrollbarStyle: "overlay",
+        theme: "panda-syntax",
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        matchBrackets: true,
+        extraKeys: {"Ctrl": "autocomplete"}
+
+    });
+    editor.on("keypress", (instance) => {
+        instance.showHint(
+            {
+                completeSingle: false,
+                alignWithWord: false,
+                hint: CodeMirror.hint.sql,
+                scrollbarStyle: "overlay",
+            }
+        )
+
+    });
+    const availableTable = [
+        {% for table in table_list.tables %}
+            "{{ table }}",
+        {% endfor %}
+    ];
+
+    $(document).ready(function () {
+        $("#search_table").autocomplete({
+            source: availableTable
+        });
+        //search test
+        $("#search_test").click(function () {
+           $.ajax({
+               type: "post",
+               url: "/search/test",
+               data: $("#search_test_text").serialize(),
+               success: function (data) {
+                   if(data.resp === 'success'){
+                       window.location.href = data.url
+                       $("#alert").removeClass("alert-danger").removeClass("alert-info").addClass("alert-success")
+                        $("#alert-title").text(data.info)
+                    } else {
+                       $("#alert").removeClass("alert-success").removeClass("alert-info").addClass("alert-danger")
+                       $("#alert-title").text(data.info)
+                   }
+                   $("#search_test").removeClass("disabled")
+               },
+               failure: function () {
+                   $("#search_test").removeClass("disabled")
+               }
+           })
+        });
+        let page_num = 0
+        let max_page = 0
+
+        function execute_success(table_name, data) {
+            if (data.result === 'success') {
+                $("#alert").removeClass("alert-danger").removeClass("alert-info").addClass("alert-success")
+                $("#alert-title").text("成功")
+                $("#alert-content").text("执行成功，返回" + data.rowcount + "行数据")
+                let html = "<thead><tr>"
+                for (const row in data.description) {
+                    html += "<th>" + data.description[row][0] + "</th>"
+                }
+                html += "</tr></thead><tbody>"
+                for (const row in data.data) {
+                    html += "<tr>"
+                    for (const item in data.data[row]) {
+                        html += "<td>" + data.data[row][item] + "</td>"
+                    }
+                    html += "</tr>"
+                }
+                html += "</tbody>"
+                $("#result-table").html(html)
+                $("#result-table-name").text(table_name)
+                $("#result-table-size").text("size:" + data.rowcount)
+                max_page = Math.floor((data.rowcount - 1) / 15)
+            } else {
+                $("#alert").removeClass("alert-success").removeClass("alert-info").addClass("alert-danger")
+                $("#alert-title").text("失败")
+                $("#alert-content").text("[" + data.errno + "]" + data.errmsg)
+            }
+            $("#answer_run").removeClass("disabled")
+        }
+
+        function execute_failure() {
+            $("#alert").removeClass("alert-success").removeClass("alert-info").addClass("alert-danger")
+            $("#alert-title").text("失败")
+            $("#alert-content").text("请求失败")
+            $("#answer_run").removeClass("disabled")
+        }
+
+        //run
+        $("#answer_run").click(function () {
+            $(this).addClass("disabled")
+            editor.save()
+            page_num = 0
+            $.ajax({
+                type: "post",
+                url: "/user/execute",
+                data: $("#sql_code").serialize(),
+                success: function (data) {
+                    execute_success("", data)
+                },
+                failure: execute_failure,
+            })
+        });
+        //submit
+        $("#answer_submit").click(function () {
+            $(this).addClass("disabled")
+            $.ajax({
+                type: "post",
+                url: "/user/verify",
+                data: {
+                    test: "{{ problem.idx|d("") }}"
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data.result === 'success') {
+                        $("#alert").removeClass("alert-danger").addClass("alert-success")
+                        $("#alert-title").text("成功")
+                        $("#alert-content").text("提交成功")
+                        window.location.reload();
+                    } else {
+                        $("#alert").removeClass("alert-success").addClass("alert-danger")
+                        $("#alert-title").text("失败")
+                        $("#alert-content").text(data.message)
+                    }
+                    $("#answer_submit").removeClass("disabled")
+                },
+                failure: function () {
+                    $("#alert").removeClass("alert-success").addClass("alert-danger")
+                    $("#alert-title").text("失败")
+                    $("#alert-content").text("请求失败")
+                    $("#answer_submit").removeClass("disabled")
+                }
+            })
+        });
+
+        $("#card-element-123456 .card-body").draggable({
+            appendTo: "body",
+            helper: "clone"
+        });
+        $("#todolist .list-group ").droppable({
+            activeClass: "ui-state-default",
+            hoverClass: "ui-state-hover",
+            accept: ":not(.ui-sortable-helper)",
+            drop: function (event, ui) {
+                $("<li class=\"list-group-item addtodolist\"></li>").text(ui.draggable.text()).appendTo(this);
+            },
+        }).sortable({
+            items: "li:not(.placeholder)",
+            sort: function () {
+                // 获取由 droppable 与 sortable 交互而加入的条目
+                // 使用 connectWithSortable 可以解决这个问题，但不允许您自定义 active/hoverClass 选项
+                $(this).removeClass("ui-state-default");
+            }
+        });
+
+
+        $("#colormode").click(function () {
+            const cur = $("html").attr("data-bs-theme");
+            let aft;
+            if (cur == "light") {
+                aft = "dark"
+            } else {
+                aft = "light"
+            }
+            $("html").attr('data-bs-theme', aft);
+        });
+
+        $(".common-table").click(function () {
+            let table_name = $(this).text()
+            page_num = 0
+            $.ajax({
+                type: "post",
+                url: "/user/find_table",
+                data: {'name': table_name},
+                success: function (data) {
+                    execute_success(table_name, data)
+                },
+                failure: execute_failure,
+            })
+        });
+
+        function select_page(page_num) {
+            const table_name = $("#result-table-name").text()
+            $.ajax({
+                type: "post",
+                url: "/user/select_page",
+                data: {
+                    page: page_num
+                },
+                success: function (data) {
+                    console.log(data)
+                    execute_success(table_name, data)
+                },
+                failure: execute_failure,
+            })
+        }
+
+        $("#select-page-f").click(function () {
+            page_num = 0
+            select_page(page_num)
+        })
+        $("#select-page-p").click(function () {
+            if (page_num > 0) page_num--
+            select_page(page_num)
+        })
+        $("#select-page-n").click(function () {
+            if (page_num < max_page) page_num++
+            select_page(page_num)
+        })
+        $("#select-page-l").click(function () {
+            page_num = max_page
+            select_page(page_num)
+        })
+        $("#search_table_button").click(function () {
+            const table = $("#search_table").val()
+            window.location.hash = "#list-" + table
+        })
+    });
+    /*返回顶部*/
+    $(window).scroll(function () {
+        var sc = $(window).scrollTop();
+        var rwidth = $(window).width()
+        if (sc > 0) {
+            $("#goTopBtn").css("display", "block");
+            $("#goTopBtn").css("left", (rwidth - 36) + "px")
+        } else {
+            $("#goTopBtn").css("display", "none");
+        }
+    })
+    $("#goTopBtn").click(function () {
+        var sc = $(window).scrollTop();
+        $('body,html').animate({scrollTop: 0}, 500);
+    })
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+<!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script> -->
+</body>
+</html>
+
